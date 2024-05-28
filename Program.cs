@@ -1,29 +1,48 @@
-﻿using EspacioCalculadora;
-// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using EspacioEmpleados;
 
+Empleado nuevo = new Empleado();
 
-
-
-string cadenaNumero = Console.ReadLine();
-double numero;
-bool anda = double.TryParse(cadenaNumero, out numero);
-
-if (anda)
+Console.WriteLine("Ingrese el nombre del empleado: ");
+string nombre = Console.ReadLine();
+nuevo.SetNombre(nombre);
+Console.WriteLine("Ingrese el apellido: ");
+string apellido = Console.ReadLine();
+nuevo.SetApellido(apellido);
+Console.WriteLine("Ingrese la fecha de nacimiento formato dd/mm/aaaa: ");
+string entrada = Console.ReadLine();
+DateTime fechaNac;
+bool andaFecha = DateTime.TryParse(entrada, out fechaNac);
+if (andaFecha)
 {
-    Calculadora calc = new Calculadora(numero);
-
-    Console.WriteLine("Valor inicial del numero: "+calc.Resultado);
-
-    calc.sumar(5);
-    Console.WriteLine("Sumandole 5: "+calc.Resultado);
-
-    calc.restar(3);
-    Console.WriteLine("Restandole 3: "+calc.Resultado);
-
-    calc.multiplicar(4);
-    Console.WriteLine("Multiplicando por 2: "+calc.Resultado);
-
-    calc.dividir(2);
-    Console.WriteLine("Dividiendo en 2: "+calc.Resultado);
+    nuevo.SetFechaDeNac(fechaNac);
 }
+
+Console.WriteLine("Ingrese el estado civil S (soltero), C (Casado), V (Viudo): ");
+string estadoCivil = Console.ReadLine();
+
+if (estadoCivil[0] != ' ')
+{   
+    char eCivil = estadoCivil[0];
+    nuevo.SetEstadoCivil(eCivil);
+}
+
+Console.WriteLine("Se establecerá la fecha de hoy como ingresante");
+nuevo.SetFechaIngre(DateTime.Now);
+
+Console.WriteLine("Sueldo base?");
+string cadenaSueldo = Console.ReadLine();
+double sueldo;
+bool andaSueldo = double.TryParse(cadenaSueldo,out sueldo); 
+if (andaSueldo)
+{
+    nuevo.SetSueldoBase(sueldo);
+}
+
+int edad= nuevo.edad();
+int antiguedad = nuevo.antiguedad();
+int paraJubilarse = nuevo.paraJubilarse();
+
+Console.WriteLine("Nombre: "+nuevo.GetNombre());
+Console.WriteLine("Apellido: "+nuevo.GetApellido());
+Console.WriteLine("Sueldo: "+nuevo.salario());
+Console.WriteLine("Edad: "+edad);
